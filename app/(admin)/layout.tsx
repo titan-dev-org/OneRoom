@@ -25,7 +25,6 @@ export default function AdminLayout({
         return
       }
 
-      // Check if user is admin (you can customize this)
       const { data: profile } = await supabase
         .from('profiles')
         .select('role')
@@ -46,7 +45,7 @@ export default function AdminLayout({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
       </div>
     )
@@ -64,4 +63,4 @@ export default function AdminLayout({
       </main>
     </div>
   )
-                    }
+}
