@@ -1,9 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'  // ← Pastikan ini ada
-
-const inter = Inter({ subsets: ['latin'] })
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'OneRoom - Social Media Platform',
@@ -17,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   )
 }
