@@ -1,0 +1,12 @@
+{
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "regions": ["sin1"],
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://ovuvbjheclkkedahbdpj.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92dXZiamhlY2xra2VkYWhiZHBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyOTQ4MzksImV4cCI6MjEwMzg3MDgzOX0.lUsdbjFvm-Q__FrXByS-UtIAVbUVjvCijjNpe2vQt7Q",
+    "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92dXZiamhlY2xra2VkYWhiZHBqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4ODI5NDgzOSwiZXhwIjoyMTAzODcwODM5fQ.rglrfrmONHKOUkYO8EIBHyPUPv3o6WQDWsb3gUV2DYI",
+    "NEXTAUTH_SECRET": "7f8a9b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6"
+  }
+}
