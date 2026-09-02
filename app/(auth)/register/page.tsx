@@ -1,9 +1,10 @@
 // app/(auth)/register/page.tsx
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import Link from 'next/link'
 
 export default function Register() {
   const [email, setEmail] = useState('')
@@ -12,8 +13,21 @@ export default function Register() {
   const [fullName, setFullName] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const supabase = createClient()
+
+  // Cek session di awal
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        router.push('/')
+      }
+      setIsLoading(false)
+    }
+    checkSession()
+  }, [router, supabase])
 
   const validatePassword = (pass: string) => {
     const hasMinLength = pass.length >= 8
@@ -70,7 +84,7 @@ export default function Register() {
               id: authData.user.id,
               username,
               full_name: fullName,
-              role: 'user', // default role
+              role: 'user',
             },
           ])
 
@@ -85,6 +99,14 @@ export default function Register() {
     }
   }
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -93,7 +115,10 @@ export default function Register() {
             Daftar Akun
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Bergabunglah dengan komunitas OneRoom
+            Sudah punya akun?{' '}
+            <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+              Login
+            </Link>
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -104,11 +129,12 @@ export default function Register() {
                 id="email"
                 name="email"
                 type="email"
+                autoComplete="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
+                placeholder="Email"
               />
             </div>
             <div>
@@ -142,6 +168,7 @@ export default function Register() {
                 id="password"
                 name="password"
                 type="password"
+                autoComplete="new-password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -165,19 +192,13 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Memproses...' : 'Daftar'}
             </button>
-          </div>
-
-          <div className="text-sm text-center">
-            <a href="/login" className="font-medium text-blue-600 hover:text-blue-500">
-              Sudah punya akun? Login
-            </a>
           </div>
         </form>
       </div>
     </div>
   )
-                }
+            }
